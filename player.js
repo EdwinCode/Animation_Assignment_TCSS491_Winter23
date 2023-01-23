@@ -2,7 +2,7 @@ class Player {
 	constructor(game) {
 		this.game = game;
 		this.animator = new Animator(ASSET_MANAGER.getAsset("./player.png"),
-			0, 204, 98, 88, 7, 0.2);
+			100, 204, 100, 88, 6, 0.2);
 
 		this.x = 10;
 		this.y = 10;
