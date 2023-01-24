@@ -8,7 +8,6 @@ class Player {
 
 		this.x = 10;
 		this.y = 10;
-		this.speed = 0;
 
 		this.direction = 0; // 0 = right, 1 = down, 2 = left, 3 = up
 		this.state = 0; // 0 = idle, 1 = walking, 2 = running, 3 = sitting
