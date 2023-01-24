@@ -88,6 +88,15 @@ class GameEngine {
             }
         }
         setInterval(checkInGameArea, 200);
+
+        // Handle page visibility change:
+        // - If the page is hidden, stop movement
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                that.inCanvas = false;
+                that.keys = {};
+            }
+        });
     };
 
     addEntity(entity) {
@@ -128,6 +137,6 @@ class GameEngine {
         this.draw();
     };
 
-};
+}
 
 // KV Le was here :)
