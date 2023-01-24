@@ -14,6 +14,7 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
         this.keys = {};
+        this.inCanvas = true; // check if in game area
 
         // Options and the Details
         this.options = options || {
@@ -74,6 +75,19 @@ class GameEngine {
 
         this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
         this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
+
+        var that = this;
+        function checkInGameArea() {
+            const elem = document.getElementById("gameWorld");
+
+            if (elem === document.activeElement) {
+                that.inCanvas = true;
+            } else {
+                that.inCanvas = false;
+                that.keys = {};
+            }
+        }
+        setInterval(checkInGameArea, 200);
     };
 
     addEntity(entity) {
