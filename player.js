@@ -1,8 +1,6 @@
 class Player {
 	constructor(game) {
 		this.game = game;
-		this.animator = new Animator(ASSET_MANAGER.getAsset("./player.png"),
-			100, 204, 100, 88, 6, 0.2);
 
 		this.spritesheet = ASSET_MANAGER.getAsset("./player.png");
 
@@ -55,28 +53,51 @@ class Player {
 	};
 
 	update() {
-		if (this.game.keys['w'] && !this.game.keys['s']) {
-			this.direction = 3; // up
-			this.state = 1; // walking
-			this.y -= 4;
-		} else if (this.game.keys['s'] && !this.game.keys['w']) {
-			this.direction = 1; // down
-			this.state = 1; // walking
-			this.y += 4;
-		}
-
-		if (this.game.keys['d'] && !this.game.keys['a']) {
-			this.direction = 0; // right
-			this.state = 1; // walking
-			this.x += 4;
-		} else if (this.game.keys['a'] && !this.game.keys['d']) {
-			this.direction = 2; // left
-			this.state = 1; // walking
-			this.x -= 4;
-		}
-
-		if (!this.game.keys['w'] && !this.game.keys['s'] && !this.game.keys['d'] && !this.game.keys['a']) {
+		if (!this.game.keys['w'] && !this.game.keys['W'] && !this.game.keys['s'] && !this.game.keys['S']
+		&& !this.game.keys['a'] && !this.game.keys['A'] && !this.game.keys['d'] && !this.game.keys['D']) {
 			this.state = 3;
+		} else {
+			if (this.game.keys['W'] && !this.game.keys['s'] && !this.game.keys['S']) {
+				this.direction = 3; // up
+				this.state = 2; // running
+				this.y -= 8;
+			} else if (this.game.keys['w'] && !this.game.keys['s'] && !this.game.keys['S']) {
+				this.direction = 3; // up
+				this.state = 1; // walking
+				this.y -= 4;
+			}  else if ((this.game.keys['W'] || this.game.keys['w']) && (this.game.keys['s'] || this.game.keys['S'])) {
+				this.direction = 3; // up
+				this.state = 0; // idle standing
+			} else if (this.game.keys['S'] && !this.game.keys['w'] && !this.game.keys['W']) {
+				this.direction = 1; // down
+				this.state = 2; // running
+				this.y += 8;
+			} else if (this.game.keys['s'] && !this.game.keys['w'] && !this.game.keys['W']) {
+				this.direction = 1; // down
+				this.state = 1; // walking
+				this.y += 4;
+			}
+
+			if (this.game.keys['D'] && !this.game.keys['a'] && !this.game.keys['A']) {
+				this.direction = 0; // right
+				this.state = 2; // running
+				this.x += 8;
+			} else if (this.game.keys['d'] && !this.game.keys['a'] && !this.game.keys['A']) {
+				this.direction = 0; // right
+				this.state = 1; // walking
+				this.x += 4;
+			}  else if ((this.game.keys['D'] || this.game.keys['d']) && (this.game.keys['a'] || this.game.keys['A'])) {
+				this.direction = 0; // right
+				this.state = 0; // idle standing
+			} else if (this.game.keys['A'] && !this.game.keys['d'] && !this.game.keys['D']) {
+				this.direction = 2; // left
+				this.state = 2; // running
+				this.x -= 8;
+			} else if (this.game.keys['a'] && !this.game.keys['d'] && !this.game.keys['D']) {
+				this.direction = 2; // left
+				this.state = 1; // walking
+				this.x -= 4;
+			}
 		}
 
 		if(this.x > 1024) this.x = 0;
